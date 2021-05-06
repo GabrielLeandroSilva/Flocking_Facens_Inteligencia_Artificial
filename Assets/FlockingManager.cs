@@ -17,12 +17,21 @@ public class FlockingManager : MonoBehaviour
     //Espaçamento entre os peixes
     public Vector3 swimLimitis = new Vector3(5, 5, 5);
 
+    //Destino
+    public Vector3 goalPos;
+
 
     [Header("Configuração di Cardume")]
     [Range(0.0f, 5.0f)]
     public float minSpeed;
     [Range(0.0f, 5.0f)]
     public float maxSpeed;
+    [Range(1.0f, 10.0f)]
+    public float neighbourDistance;
+    [Range(0.0f, 5.0f)]
+    public float rotationSpeed;
+
+
 
     private void Start()
     {
@@ -35,5 +44,21 @@ public class FlockingManager : MonoBehaviour
             allFish[i] = (GameObject)Instantiate(fishPrefab, pos, Quaternion.identity);
             allFish[i].GetComponent<Flock>().myManager = this;
         }
+
+        //Obtem a posição atual
+        goalPos = this.transform.position;
+
     }
+
+    private void Update()
+    {
+        // verifica se a distancia para não colidir
+        if(Random.Range(0, 100) < 10)
+        {
+            goalPos = this.transform.position + new Vector3(Random.Range(-swimLimitis.x, swimLimitis.x), Random.Range(-swimLimitis.y, swimLimitis.y), Random.Range(-swimLimitis.z, swimLimitis.z));
+        }
+    }
+
+
+
 }

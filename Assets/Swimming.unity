@@ -246,8 +246,11 @@ MonoBehaviour:
   numFish: 20
   allFish: []
   swimLimitis: {x: 5, y: 5, z: 5}
+  goalPos: {x: 0, y: 0, z: 0}
   minSpeed: 2.48
   maxSpeed: 2.38
+  neighbourDistance: 3.07
+  rotationSpeed: 0.74
 --- !u!4 &305280156
 Transform:
   m_ObjectHideFlags: 0
@@ -397,6 +400,6 @@ PrefabInstance:
         type: 3}
       propertyPath: myManager
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 305280155}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0489fdb6d64a4a4ba8e194e561d60cd, type: 3}
