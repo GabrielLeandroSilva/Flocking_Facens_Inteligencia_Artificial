@@ -25,9 +25,21 @@ public class Flock : MonoBehaviour
     {
         //Limitar o campo de navegação
         Bounds b = new Bounds(myManager.transform.position, myManager.swimLimitis * 2);
+
+        //Realiza a construção do raycast
+        RaycastHit hit = new RaycastHit();
+        Vector3 direction = myManager.transform.position - transform.position;
         if(!b.Contains(transform.position))
         {
             tunning = true;
+            //Realiza uma curva suave para o retorno da posição
+            direction = myManager.transform.position - transform.position;
+        }
+        else if(Physics.Raycast(transform.position, this.transform.forward * 50, out hit))
+        {
+            // Evita a colisão no pilar
+            tunning = true;
+            direction = Vector3.Reflect(this.transform.forward, hit.normal);
         }
         else
         {
@@ -36,8 +48,6 @@ public class Flock : MonoBehaviour
 
         if(tunning)
         {
-            //Realiza uma curva suave para o retorno da posição
-            Vector3 direction = myManager.transform.position - transform.position;
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), myManager.rotationSpeed * Time.deltaTime);
         }
         else
